@@ -1,8 +1,13 @@
-import { loadEnv, defineConfig } from '@medusajs/framework/utils'
+import { defineConfig } from '@medusajs/framework/utils'
 
-// Only load from .env file in development
-if (process.env.NODE_ENV !== 'production') {
-  loadEnv(process.env.NODE_ENV || 'development', process.cwd())
+// Don't use loadEnv in production - Railway injects environment variables directly
+// Only load .env for local development
+if (process.env.NODE_ENV === 'development' && typeof require !== 'undefined') {
+  try {
+    require('dotenv').config()
+  } catch (e) {
+    // dotenv not available, that's fine
+  }
 }
 
 module.exports = defineConfig({
