@@ -17,6 +17,7 @@
     "db:setup": "medusa db:setup",
     "db:migrate": "medusa db:migrate",
     "db:sync": "medusa db:sync-links",
+    "predeploy": "medusa db:migrate",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "start:prod": "medusa db:setup && medusa start",
