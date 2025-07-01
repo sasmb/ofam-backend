@@ -1,23 +1,14 @@
 import { defineConfig } from '@medusajs/framework/utils'
 
-// Don't use loadEnv in production - Railway injects environment variables directly
-// Only load .env for local development
-if (process.env.NODE_ENV === 'development' && typeof require !== 'undefined') {
-  try {
-    require('dotenv').config()
-  } catch (e) {
-    // dotenv not available, that's fine
-  }
-}
-
+// Completely bypass .env file loading - use Railway environment variables directly
 module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     redisUrl: process.env.REDIS_URL,
     http: {
-      storeCors: process.env.STORE_CORS!,
-      adminCors: process.env.ADMIN_CORS!,
-      authCors: process.env.AUTH_CORS!,
+      storeCors: process.env.STORE_CORS || "*",
+      adminCors: process.env.ADMIN_CORS || "*",
+      authCors: process.env.AUTH_CORS || "*",
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
