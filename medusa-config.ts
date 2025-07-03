@@ -42,6 +42,7 @@ module.exports = defineConfig({
             resolve: "medusa-payment-paystack",
             options: {
               secret_key: process.env.PAYSTACK_SECRET_KEY,
+              webhook_secret: process.env.PAYSTACK_WEBHOOK_SECRET,
             },
           },
         ],
